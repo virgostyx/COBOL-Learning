@@ -1,0 +1,39 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. reverse-string.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-STRING PIC X(64).
+       01 WS-COPIE PIC X(64).
+       01 WS-LONGUEUR-CHAINE PIC 99.
+       01 WS-I PIC 99.
+       01 WS-J PIC 99.
+       01 WS-TEMP PIC X.
+
+       PROCEDURE DIVISION.
+       REVERSE-STRING.
+ 
+STRING* Reverse a string and display result
+            PERFORM RETOURNE-LA-CHAINE.       
+       DISPLAY WS-STRING.
+
+       RETOURNE-LA-CHAINE.
+         COMPUTE WS-LONGUEUR-CHAINE = 
+               FUNCTION LENGTH(FUNCTION TRIM(WS-STRING TRAILING))
+      
+         IF WS-LONGUEUR-CHAINE > 0
+            MOVE WS-STRING TO WS-COPIE
+            MOVE WS-LONGUEUR-CHAINE TO WS-J
+      
+            PERFORM VARYING WS-I FROM 1 BY 1 UNTIL WS-J <= WS-I
+            PERFORM ECHANGE-LETTRES
+            SUBTRACT 1 FROM WS-J
+            END-PERFORM
+      
+            MOVE WS-COPIE TO WS-STRING
+         END-IF.
+
+       ECHANGE-LETTRES.
+         MOVE WS-COPIE(WS-I:1) TO WS-TEMP
+         MOVE WS-COPIE(WS-J:1) TO WS-COPIE(WS-I:1)
+         MOVE WS-TEMP TO WS-COPIE(WS-J:1).
+      
